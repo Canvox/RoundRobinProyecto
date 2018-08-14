@@ -485,7 +485,7 @@ public class RoundRobinInterface extends javax.swing.JFrame {
         jTFCapturaRafaga.grabFocus();
     }
 
-    
+    //Crea informe con resultados en la tabla
     public void Informe(int c) {
         DefaultTableModel modelo2 = (DefaultTableModel) jTFinal.getModel();
 
@@ -527,6 +527,7 @@ public class RoundRobinInterface extends javax.swing.JFrame {
         jPBEstado.repaint();
     }
 
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     //Inicia la secuencia de procesos
     public void Iniciar() { 
         /*jLabel2.setVisible(false);
@@ -536,6 +537,7 @@ public class RoundRobinInterface extends javax.swing.JFrame {
         jBAgregar.setVisible(false);
         jBIniciar.setVisible(false);*/
     }
+    // </editor-fold>  
 
     // Variables declaration - do not modify                     
     private javax.swing.JButton jBAgregar;
