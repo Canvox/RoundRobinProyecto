@@ -13,9 +13,12 @@ import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author INTEL-COREi7
+  * @author uees Sistemas Operativos
+                Jeroham Arboleda
+                Nicolas Naranjo
+                Valentina Peralta
  */
+
 public class RoundRobinInterface extends javax.swing.JFrame {
 
     int Contador;//Contador del total de procesos que se van ingresando
@@ -64,6 +67,9 @@ public class RoundRobinInterface extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    
+
+    //Formato interfaz (se genera automaticamente con el design tab)
     private void myInitComponents() {
         // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -370,7 +376,7 @@ public class RoundRobinInterface extends javax.swing.JFrame {
 
     // </editor-fold>  
     
-    //Thread (ejecucion de los procesos en si)
+    //Thread (ejecucion del algoritmo en si)
     private class RRThread implements Runnable { //Objeto de tipo Hilo con extension ejectubale
 
         @Override
@@ -380,9 +386,9 @@ public class RoundRobinInterface extends javax.swing.JFrame {
 
             while (estado != 0) {
                 while (i < Contador) { //Recorrer las filas
-                    Cargar(i);
-                    if (ResiduoRafaga != 0 && ResiduoRafaga > Quantum) { //Ejecutando Procesos
-                        for (int c = 1; c <= Quantum; c++) {
+                    Cargar(i); //Cada que aumenta el contador carga nueva informacion
+                    if (ResiduoRafaga != 0 && ResiduoRafaga > Quantum) { //Ejecutando Procesos y comprobando
+                        for (int c = 1; c <= Quantum; c++) { //Recorre y carga informacion de rafaga
                             jTIngreso.setValueAt("Procesando", i, 4);
                             ResiduoRafaga--;
                             Barra(Rafaga, ResiduoRafaga);
@@ -392,14 +398,14 @@ public class RoundRobinInterface extends javax.swing.JFrame {
                             Dormir();
                         }
                         jTIngreso.setValueAt("Espera", i, 4);
-                        if (ResiduoRafaga == 0) {
+                        if (ResiduoRafaga == 0) { //Comprueba que no haya residuo para dar por terminado llenado de tabla
                             jTIngreso.setValueAt("Terminado", i, 4);
                             Pintar();
                             Informe(i);
                             Borrar(i);
                             jPBEstado.setValue(0);
                         }
-                    } else {
+                    } else { //Caso contrario se continua comprobando y procesando
                         if (ResiduoRafaga > 0 && Quantum != 0) {
                             while (ResiduoRafaga > 0) {
                                 jTIngreso.setValueAt("Procesando", i, 4);
@@ -419,7 +425,7 @@ public class RoundRobinInterface extends javax.swing.JFrame {
                                 jPBEstado.setValue(0);
                             }
                         } else {
-                            if (ResiduoRafaga == 0 && Quantum != 0) {
+                            if (ResiduoRafaga == 0 && Quantum != 0) { //Vuelve a comprobar para continuar generando informe
                                 jTIngreso.setValueAt("Terminado", i, 4);
                                 Pintar();
                                 Informe(i);
@@ -441,6 +447,7 @@ public class RoundRobinInterface extends javax.swing.JFrame {
         }
     }
 
+    //Se mantiene el proceso en stand by
     public void Dormir() {
         try {
             Thread.sleep(700); //Dormir sistema
@@ -478,6 +485,7 @@ public class RoundRobinInterface extends javax.swing.JFrame {
         jTFCapturaRafaga.grabFocus();
     }
 
+    
     public void Informe(int c) {
         DefaultTableModel modelo2 = (DefaultTableModel) jTFinal.getModel();
 
@@ -513,6 +521,7 @@ public class RoundRobinInterface extends javax.swing.JFrame {
         jLPorcentajeProceso.setText(String.valueOf(ValorBarra + "%"));
     }
 
+    //Actualiza la interfaz de usuario
     public void Pintar() {
         jPBEstado.setValue(ValorBarra);
         jPBEstado.repaint();
